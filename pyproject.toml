@@ -1,0 +1,9 @@
+[project]
+name = "wifi2usb"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.13"
+dependencies = [
+    "grbl-streamer>=2.0.2",
+    "websockets>=15.0.1",
+]

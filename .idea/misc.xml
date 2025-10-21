@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Black">
+    <option name="sdkName" value="uv (Wifi2USB)" />
+  </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="uv (Wifi2USB)" project-jdk-type="Python SDK" />
+</project>
