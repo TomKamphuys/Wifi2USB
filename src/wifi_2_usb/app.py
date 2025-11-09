@@ -65,7 +65,7 @@ async def handler(websocket):
     
     try:
         async for message in websocket:
-            logger.info(f"Received from websocket: {message}")
+            logger.info(f"Received from websocket: {message.rstrip('\n')}")
             
             # Send message to GrblStreamer
             grbl_connection.send(message)
@@ -81,7 +81,7 @@ async def handler(websocket):
             
             # Send response back to websocket client
             if response:
-                logger.info(f"Sending to websocket: {response}")
+                logger.info(f"Sending to websocket: {response.rstrip('\n')}")
                 await websocket.send(response)
             else:
                 logger.warning("No response received from GrblStreamer")
@@ -147,14 +147,14 @@ class GrblStreamerClientConnection(IClientConnection):
         self._received_message = ''
         grbl_streamer = GrblStreamer(self._on_grbl_event)
         grbl_streamer.setup_logging()
-        grbl_streamer.cnect('/dev/ttyUSB0', 115200)
+        grbl_streamer.cnect('/dev/GRBLUSB', 115200)
         time.sleep(3)
         grbl_streamer.incremental_streaming = True
         self._grbl_streamer = grbl_streamer
         logger.info('GrblStreamerClientConnection: Connected')
 
     def send(self, message: str) -> None:
-        logger.info(f'GrblStreamerClientConnection: Sending message: {message}')
+        logger.info(f'GrblStreamerClientConnection: Sending message: {message.rstrip('\n')}')
         self._grbl_streamer.send_immediately(message)
 
     def receive(self):

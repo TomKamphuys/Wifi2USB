@@ -13,6 +13,7 @@ apt-get upgrade
 apt-get dist-upgrade
 apt-get install python3
 apt-get install python3-pip
+apt-get install lnav
 ```
 
 
@@ -57,6 +58,25 @@ The esp32duino shows up on /dev/ttyUSB0 (at least on my orange pi). Add the user
 
 ```bash
 sudo adduser tom dialout
+```
+
+
+Make a symlink to the usb device to circumvent any problems with flipping of ttyUSB0 and ttyUSB1.
+
+```bash
+lsusb
+```
+
+search for the device and copy the idVendor (for me 1a86) and idProduct (for me 7523.
+
+Put this in a file:
+
+```bash
+sudo nano /etc/udev/rules.d/99_usbdevices.rules
+```
+
+```
+SUBSYSTEM == "tty", ATTRS{idVendor} == "1a86", ATTRS{idProduct} == "7523", SYMLINK += "GRBLUSB"
 ```
 
 Get the code from GitHub:
